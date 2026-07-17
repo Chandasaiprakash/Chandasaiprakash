@@ -71,55 +71,152 @@ Welcome to my GitHub! I'm passionate about building scalable microservices, clou
 
 ## 🎯 Featured Projects
 
-Here are some of my best projects:
+### 1️⃣ ⚡ SwiftPay — Real-Time Event-Driven Payment Ledger
 
-### [Microservices E-Commerce Platform](#)
-A complete e-commerce microservices architecture built with Spring Boot, deployed on Kubernetes with AWS.
-- ⭐ **Tech Stack:** Java, Spring Boot, PostgreSQL, MongoDB, Kubernetes, AWS
-- 🔍 **Observability:** Prometheus, Grafana, ELK Stack, Jaeger tracing
-- 🏗️ **Architecture:** Service Discovery, API Gateway, Event-Driven Design
-- 🔗 **Repo:** [View on GitHub](#)
+**Repository:** [github.com/Chandasaiprakash/swiftpay](https://github.com/Chandasaiprakash/swiftpay)
 
-### [Spring Boot REST API with Advanced Monitoring](#)
-Enterprise-grade REST API with comprehensive monitoring using Prometheus and ELK Stack.
-- ⭐ **Tech Stack:** Spring Boot, MySQL, Prometheus, Jaeger
-- 📊 **Metrics:** Custom metrics, health checks, distributed tracing
-- 🔗 **Repo:** [View on GitHub](#)
+A **production-grade, distributed fintech platform** for peer-to-peer payment processing built with Java 21, Spring Boot 3, Apache Kafka, PostgreSQL, and Redis.
 
-### [Kubernetes Deployment & Orchestration](#)
-Production-ready Kubernetes manifests and Helm charts for deploying microservices on AWS EKS.
-- ⭐ **Tech Stack:** Kubernetes, Helm, AWS EKS, Docker
-- 🔗 **Repo:** [View on GitHub](#)
+#### 🏆 Key Highlights:
+- **Real-time Transaction Processing:** Handles peer-to-peer payments asynchronously with 100% transactional consistency
+- **Dual-Layer Idempotency:** 
+  - Redis-backed API deduplication (24h TTL) for duplicate request prevention
+  - DB-backed consumer idempotency for Kafka redelivery safety
+- **Event-Driven Resilience:** Apache Kafka-based async processing with Dead Letter Queue (DLQ) and intelligent retry handling
+- **High Throughput:** Load-tested and validated at **250 TPS across 1 million transactions**
+- **Pessimistic Locking:** Deadlock-free concurrent account updates using ordered `SELECT FOR UPDATE`
 
-### [Distributed Tracing with Jaeger](#)
-Implementation of distributed tracing across microservices using Jaeger and Spring Cloud Sleuth.
-- ⭐ **Tech Stack:** Jaeger, Spring Cloud Sleuth, Spring Boot
-- 🔗 **Repo:** [View on GitHub](#)
+#### 🔄 Architecture:
+- **Transaction Gateway (Port 8080):** REST API ingestion, Redis idempotency checks, outbox publishing
+- **Ledger Service (Port 8081):** Kafka consumer, atomic balance mutations, event publishing
+- **Analytics Worker (Port 8082):** Real-time payment analytics aggregation
+- **Outbox Pattern:** Guaranteed event publishing with scheduler-based Kafka publishing
+
+#### 📊 Observability Stack:
+- **Prometheus:** Custom Micrometer metrics for payments (initiated, completed, failed, duplicates)
+- **Jaeger:** Distributed tracing across services
+- **ELK Stack:** Centralized logging and monitoring
+- **Spring Boot Actuator:** Health checks, metrics endpoints
+
+#### 🛡️ Failure Handling:
+- **Insufficient Funds:** Routes to `payments.failed` (no retry)
+- **Kafka Outage:** Outbox events remain in PostgreSQL, published on recovery
+- **Service Crashes:** Kafka redelivery + DB idempotency prevents double-processing
+- **Infrastructure Failures:** 3-retry mechanism with 2-second intervals → DLQ
+
+#### 🚀 Deployment:
+- **Docker Compose:** Full local development with Kafka UI, Redis, PostgreSQL
+- **Kubernetes:** Multi-replica deployments on Docker Desktop Kubernetes
+- **CI/CD:** GitHub Actions matrix strategy for all three services
+
+#### 📈 Performance Results:
+- **p95 Latency:** 109.99ms
+- **Throughput:** Stable 250 TPS
+- **Error Rate:** 0.00%
+- **Success Rate:** 99.9%
+
+#### 🔧 Tech Stack:
+`Java 21` • `Spring Boot 3.5` • `Apache Kafka 7.6.1` • `PostgreSQL 16` • `Redis 7` • `Docker` • `Kubernetes` • `Prometheus` • `Jaeger` • `GitHub Actions`
+
+---
+
+### 2️⃣ 🍔 FOODIE — Cloud-Native Distributed Food Ordering Platform
+
+**Repository:** [github.com/Chandasaiprakash/Foodie](https://github.com/Chandasaiprakash/Foodie)
+
+A **production-grade microservices system** demonstrating **Event-Driven Architecture**, **Infrastructure as Code**, and **High-Availability** patterns on AWS with Kubernetes orchestration.
+
+#### 🏆 Key Highlights:
+- **Saga Pattern (Orchestration):** Distributed transactions across Order, Payment, Inventory, Delivery services
+- **Bounded Contexts:** Clean domain isolation with independent deployment
+- **Event-Driven Workflow:**
+  - Order Created → Payment Processing → Delivery Allocation
+  - Compensation mechanism for automatic rollback on failures
+- **Polyglot Persistence:** MySQL for ACID transactions, MongoDB for Catalog, Redis for Caching
+- **Real-time Updates:** WebSockets for live delivery status tracking
+
+#### 🔄 Microservices Architecture:
+- **Order Service:** Order creation, validation, state management
+- **Payment Service:** Idempotent payment processing with compensation
+- **Inventory Service:** Stock management and allocation
+- **Delivery Service:** Rider allocation with real-time status updates
+- **Auth Service:** JWT-based authentication and authorization
+- **Notification Service:** Event-driven email/SMS notifications
+
+#### 📊 Observability Stack:
+- **Distributed Tracing:** OpenTelemetry for end-to-end request tracing (API → Kafka → Services)
+- **Prometheus + Grafana:** Custom dashboards for:
+  - Kafka consumer lag monitoring
+  - P95 latency alerts (threshold: 200ms)
+  - Circuit breaker state tracking
+- **ELK Stack:** Centralized logging across all services
+- **Jaeger:** Trace visualization and performance analysis
+
+#### 🛡️ Resilience Patterns:
+- **Circuit Breakers:** Resilience4j for fault tolerance
+- **Bulkhead Pattern:** Isolated thread pools for Payment Gateway to prevent cascading failures
+- **Rate Limiting:** Per-service rate limiters
+- **Retry Topics:** Kafka-based retry mechanism for failed messages
+- **Dead Letter Queues:** Poison message handling and inspection
+
+#### ☁️ Infrastructure & DevOps:
+- **AWS EKS:** Managed Kubernetes on AWS
+- **Terraform:** Infrastructure as Code for VPC, EKS cluster, networking
+- **Helm Charts:** Zero-downtime rolling updates with probes
+- **S3 Backend:** Terraform state management with DynamoDB locking
+- **Auto-scaling:** Worker node auto-scaling based on demand
+
+#### 🚀 CI/CD Pipeline:
+- **GitHub Actions:** Automated builds on PR/merge to main
+- **Docker:** Service containerization with ECR push
+- **Jenkins:** Alternative CI/CD integration
+- **Helm Deployment:** Automated K8s deployment on merge
+
+#### 📈 Deployment Strategy:
+- **Rolling Updates:** Zero-downtime deployments
+- **Liveness Probes:** Detect and recover from deadlocks
+- **Readiness Probes:** Verify dependency health before routing traffic
+- **Resource Management:** JVM memory profiling with tuned requests/limits
+
+#### 🔧 Tech Stack:
+`Java 21` • `Spring Boot 3.2` • `Apache Kafka` • `MySQL 8` • `MongoDB` • `Redis` • `AWS EKS` • `Terraform` • `Helm` • `Docker` • `Prometheus` • `Grafana` • `OpenTelemetry` • `Jaeger` • `ELK Stack` • `Resilience4j` • `GitHub Actions`
 
 ---
 
 ## 🏆 Key Expertise Areas
 
 ### Microservices Architecture
-- Design patterns: Service Discovery, API Gateway, Circuit Breaker
-- Inter-service communication: REST, gRPC, Message Queues
+- Design patterns: Service Discovery, API Gateway, Circuit Breaker, Saga Pattern
+- Inter-service communication: REST, gRPC, Apache Kafka, Message Queues
 - Spring Cloud ecosystem expertise
+- Event-driven architecture with Kafka
 
 ### Cloud-Native Development
-- AWS Services: EC2, RDS, S3, Lambda, CloudWatch
-- Container orchestration with Kubernetes
-- Infrastructure as Code with Terraform/CloudFormation
+- AWS Services: ECS, EKS, EC2, RDS, S3, Lambda, CloudWatch, ALB
+- Container orchestration with Kubernetes and Helm
+- Infrastructure as Code with Terraform
+- Zero-downtime deployments
 
 ### Observability & Monitoring
 - **ELK Stack:** Elasticsearch, Logstash, Kibana for centralized logging
-- **Prometheus:** Metrics collection and alerting
-- **Jaeger:** Distributed tracing across microservices
-- **Grafana:** Advanced dashboards and visualization
+- **Prometheus:** Metrics collection, custom instrumentation, alerting
+- **Jaeger:** Distributed tracing and trace visualization
+- **Grafana:** Advanced dashboards for business and infrastructure metrics
+- **OpenTelemetry:** End-to-end instrumentation across services
 
-### Database Design
+### Database Design & Optimization
 - SQL optimization and indexing strategies
 - NoSQL design patterns with MongoDB
-- Data consistency and scalability considerations
+- Redis caching strategies (Cache-Aside pattern)
+- Data consistency and ACID transaction management
+- Polyglot persistence architectures
+
+### Resilience & Fault Tolerance
+- Idempotency patterns (API-layer and consumer-layer)
+- Dead Letter Queue (DLQ) handling
+- Circuit breakers and bulkhead isolation
+- Pessimistic locking for concurrent transactions
+- Outbox pattern for event-driven reliability
 
 ---
 
@@ -145,12 +242,13 @@ Implementation of distributed tracing across microservices using Jaeger and Spri
 
 ## 💡 What I'm Up To
 
-- 🔭 Building scalable microservices architectures
-- ☁️ Architecting cloud-native solutions on AWS
-- 🛠️ Contributing to open-source backend projects
+- 🔭 Building scalable microservices architectures at scale
+- ☁️ Architecting cloud-native solutions on AWS with Kubernetes
+- 🛠️ Designing event-driven systems with Apache Kafka
 - 📖 Writing about microservices best practices and cloud architecture
-- 🎨 Designing resilient and observable systems
-- 🚀 Exploring Kubernetes advanced patterns and GitOps
+- 🎨 Designing resilient and highly observable systems
+- 🚀 Exploring advanced Kubernetes patterns and GitOps
+- 📊 Implementing comprehensive observability stacks (ELK, Prometheus, Jaeger)
 
 ---
 
@@ -158,9 +256,10 @@ Implementation of distributed tracing across microservices using Jaeger and Spri
 
 - [ ] Build and open-source enterprise-grade microservices frameworks
 - [ ] Contribute to Spring ecosystem and Kubernetes projects
-- [ ] Share deep expertise through technical articles and talks
+- [ ] Share deep expertise through technical articles and conference talks
 - [ ] Mentor developers in backend architecture and cloud-native design
 - [ ] Stay cutting-edge with emerging technologies in cloud and DevOps
+- [ ] Create production-ready reference architectures for distributed systems
 
 ---
 
@@ -168,10 +267,12 @@ Implementation of distributed tracing across microservices using Jaeger and Spri
 
 - [Spring Boot Documentation](https://spring.io/projects/spring-boot)
 - [Kubernetes Official Docs](https://kubernetes.io/docs/)
+- [Apache Kafka Documentation](https://kafka.apache.org/documentation/)
 - [Prometheus Monitoring](https://prometheus.io/)
 - [Jaeger Tracing](https://www.jaegertracing.io/)
 - [ELK Stack Guide](https://www.elastic.co/what-is/elk-stack)
 - [AWS Documentation](https://docs.aws.amazon.com/)
+- [Terraform AWS Provider](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
 
 ---
 
@@ -179,6 +280,6 @@ Implementation of distributed tracing across microservices using Jaeger and Spri
 
 ### ⭐ If you find my work helpful, please consider starring my repositories!
 
-**Let's build scalable systems together! 🚀**
+**Let's build scalable, resilient, and observable systems together! 🚀**
 
 </div>
