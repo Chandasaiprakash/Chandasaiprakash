@@ -2,7 +2,7 @@
 <h3 align="center">Backend Software Engineer — Distributed Systems & Event-Driven Architecture</h3>
 
 <p align="center">
-Java Backend Engineer at <b>Accenture</b> (Financial Services & IoT) — ~4 years building production backend systems that process <b>5M+ events/day</b>.
+Java Backend Engineer at <b>Virtusa</b> (Financial Services & IoT) — ~4 years building production backend systems that process <b>5M+ events/day</b>.
 I propose and drive architectural decisions (Kafka adoption, Saga design, CQRS strategy) end-to-end, reviewed with senior architects — not just ticket execution.
 </p>
 
