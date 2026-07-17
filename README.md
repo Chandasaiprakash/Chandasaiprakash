@@ -220,21 +220,14 @@ A **production-grade microservices system** demonstrating **Event-Driven Archite
 
 ---
 
-## 📚 Latest Blog Posts
-<!-- BLOG-POST-LIST:START -->
-- Coming soon! Check back for tech articles on microservices, Kubernetes, and cloud architecture.
-<!-- BLOG-POST-LIST:END -->
-
----
-
 ## 🌐 Connect With Me
 
 <div align="center">
 
-[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/)
-[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:your.email@example.com)
-[![Portfolio](https://img.shields.io/badge/Portfolio-FF6B6B?style=for-the-badge&logo=firefox&logoColor=white)](https://yourportfolio.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/chandasaiprakash/)
+[![LeetCode](https://img.shields.io/badge/LeetCode-FFA116?style=for-the-badge&logo=leetcode&logoColor=black)](https://www.leetcode.com/u/chandasaiprakash/)
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:chandasaiprakash123@gmail.com)
+[![Portfolio](https://img.shields.io/badge/Portfolio-FF6B6B?style=for-the-badge&logo=firefox&logoColor=white)](https://chandasaiprakash.online/)
 
 </div>
 
@@ -245,10 +238,10 @@ A **production-grade microservices system** demonstrating **Event-Driven Archite
 - 🔭 Building scalable microservices architectures at scale
 - ☁️ Architecting cloud-native solutions on AWS with Kubernetes
 - 🛠️ Designing event-driven systems with Apache Kafka
-- 📖 Writing about microservices best practices and cloud architecture
 - 🎨 Designing resilient and highly observable systems
 - 🚀 Exploring advanced Kubernetes patterns and GitOps
 - 📊 Implementing comprehensive observability stacks (ELK, Prometheus, Jaeger)
+- 💻 Solving LeetCode problems and competitive programming challenges
 
 ---
 
