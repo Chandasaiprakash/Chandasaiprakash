@@ -57,18 +57,6 @@ Welcome to my GitHub! I'm passionate about building scalable microservices, clou
 
 ---
 
-## 📊 GitHub Stats
-
-<div align="center">
-  
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=Chandasaiprakash&show_icons=true&theme=radical)
-
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=Chandasaiprakash&layout=compact&theme=radical)
-
-</div>
-
----
-
 ## 🎯 Featured Projects
 
 ### 1️⃣ ⚡ SwiftPay — Real-Time Event-Driven Payment Ledger
